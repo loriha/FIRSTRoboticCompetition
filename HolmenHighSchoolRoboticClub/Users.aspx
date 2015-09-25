@@ -21,11 +21,11 @@
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
             <asp:TemplateField HeaderText="NAME" SortExpression="NAME">
                 <EditItemTemplate>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("NAME") %>'></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvName" runat="server" ErrorMessage="Name is required" ControlToValidate="TextBox1"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("NAME") %>'></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvName" runat="server" ErrorMessage="Name is required" ControlToValidate="NameTextBox"></asp:RequiredFieldValidator>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Bind("NAME") %>'></asp:Label>
+                    <asp:Label ID="NameLabel" runat="server" Text='<%# Bind("NAME") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="ROLE" SortExpression="ROLE">
@@ -34,7 +34,6 @@
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label ID="Label2" runat="server" Text='<%# Bind("ROLE") %>'></asp:Label>
-
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

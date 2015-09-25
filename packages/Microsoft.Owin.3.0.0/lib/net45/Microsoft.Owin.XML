@@ -4,7 +4,16 @@
         <name>Microsoft.Owin</name>
     </assembly>
     <members>
+        <member name="T:Owin.AppBuilderUseExtensions">
+            <summary>
+            Extension methods for <see cref="T:Owin.IAppBuilder"/>.
+            </summary>
+        </member>
         <member name="M:Owin.AppBuilderUseExtensions.Use``1(Owin.IAppBuilder,System.Object[])">
+            <summary>
+            Inserts a middleware into the OWIN pipeline.
+            </summary>
+            <typeparam name="T">The middleware type</typeparam>
             <param name="app"></param>
             <param name="args">Any additional arguments for the middleware constructor</param>
             <returns></returns>
@@ -3213,4 +3222,3 @@
         </member>
     </members>
 </doc>
-
