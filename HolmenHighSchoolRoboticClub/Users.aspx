@@ -30,10 +30,10 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="ROLE" SortExpression="ROLE">
                 <EditItemTemplate>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("ROLE") %>'></asp:TextBox>
+                    <asp:TextBox ID="RoleTextBox" runat="server" Text='<%# Bind("ROLE") %>'></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Label ID="Label2" runat="server" Text='<%# Bind("ROLE") %>'></asp:Label>
+                    <asp:Label ID=RoleLabel" runat="server" Text='<%# Bind("ROLE") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
