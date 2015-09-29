@@ -24,11 +24,14 @@ namespace HolmenHighSchoolRoboticClub.Account
                 SqlConnection con = new SqlConnection("data source=.; database=HolmenRoboticsClub; integrated security=SSPI");
                 try 
                 {
-                   // SqlConnection con = new SqlConnection("Data Source=(LocalDb)\v11.0;Initial Catalog=HolmenRoboticsClub;Integrated Security=True");
-                    SqlCommand cmd = new SqlCommand("insert into Users (Name,Role) Values(@Name, @Role)", con);
+
+                    Session["UserName"] = NameTextBox.Text;
+                    Session["UserRole"] = Roles.Text;
+                    SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email) Values(@Name, @Role, @Email)", con);
 
                     cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
                     cmd.Parameters.AddWithValue("@Role", Roles.SelectedIndex.ToString());
+                    cmd.Parameters.AddWithValue("@Email", Email.Text);
                     con.Open();
                     cmd.ExecuteNonQuery();
                     

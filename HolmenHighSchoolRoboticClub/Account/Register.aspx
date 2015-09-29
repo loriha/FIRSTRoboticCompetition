@@ -25,6 +25,7 @@
             <asp:Label ID="Name" runat="server" Text="Name" CssClass="col-md-2 control-label"></asp:Label>
             <div class="col-md-10">
                  <asp:TextBox ID="NameTextBox" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvName" runat="server" ErrorMessage="The name field is required" ControlToValidate="NameTextBox"></asp:RequiredFieldValidator>
             </div>
         </div>
         <div class="form-group">
