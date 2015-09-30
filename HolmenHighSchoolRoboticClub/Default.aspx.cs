@@ -24,10 +24,10 @@ namespace HolmenHighSchoolRoboticClub
 
             //Context.User.Identity.SetUserName("");
             
-            if ((Session["UsersRole"] != null) && (Session["UserRole"].ToString() == Constants.Admin))
-               UsersLink.Enabled = true;
-           else
-               UsersLink.Enabled = false;
+           // if ((Session["UsersRole"] != null) && (Session["UserRole"].ToString() == Constants.Admin))
+           //    UsersLink.Enabled = true;
+           //else
+           //    UsersLink.Enabled = false;
           
         }
     }
