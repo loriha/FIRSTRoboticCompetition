@@ -1,9 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="HolmenHighSchoolRoboticClub.Users" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Holmen Robotics Club Users</h1>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:HolmenRoboticsClubConnectionString3 %>" SelectCommand="SELECT * FROM [Users]">
-    </asp:SqlDataSource>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" ShowFooter="True">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="SqlDataSource1" ShowFooter="True"  Style="z-index: 101; left: 249px; position: absolute;
+            top: 454px">
         <Columns>
             <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" />
@@ -32,4 +31,15 @@
         </Columns>
         <SelectedRowStyle BackColor="#6600FF" />
     </asp:GridView>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:HolmenRoboticsClubConnectionString3 %>" SelectCommand="SELECT [NAME], [ROLE], [ID] FROM [Users]" DeleteCommand="DELETE FROM USERS WHERE ID = @ID;" UpdateCommand="UPDATE Users
+ SET NAME=@name,ROLE=@role WHERE ID=@ID;">
+        <DeleteParameters>
+            <asp:Parameter Name="ID" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="name" />
+            <asp:Parameter Name="role" />
+            <asp:Parameter Name="ID" />
+        </UpdateParameters>
+    </asp:SqlDataSource>
 </asp:Content>
