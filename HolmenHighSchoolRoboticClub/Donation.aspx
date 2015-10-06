@@ -31,7 +31,7 @@
               <asp:DropDownList ID="DonationType" runat="server" Height="44px" Width="209px" CssClass="form-control">
                     <asp:ListItem Value="0">Volunteer</asp:ListItem>
                     <asp:ListItem Value="1">Donate Item(s)</asp:ListItem>
-                    <asp:ListItem Value="1">Donate Money</asp:ListItem>
+                    <asp:ListItem Value="2">Donate Money</asp:ListItem>
                </asp:DropDownList>
         </div>
     </div>

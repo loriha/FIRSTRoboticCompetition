@@ -13,166 +13,157 @@ namespace HolmenHighSchoolRoboticClub {
     public partial class Calendar {
         
         /// <summary>
-        /// TitleLbl control.
+        /// TitleLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TitleLbl;
+        protected global::System.Web.UI.WebControls.Label TitleLabel;
         
         /// <summary>
-        /// EventTitleText control.
+        /// TitleTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EventTitleText;
+        protected global::System.Web.UI.WebControls.TextBox TitleTextBox;
         
         /// <summary>
-        /// DescriptionLbl control.
+        /// rfvTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DescriptionLbl;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTitle;
         
         /// <summary>
-        /// DescriptionText control.
+        /// DescriptionLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DescriptionText;
+        protected global::System.Web.UI.WebControls.Label DescriptionLabel;
         
         /// <summary>
-        /// StartTimeLbl control.
+        /// DescriptionTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StartTimeLbl;
+        protected global::System.Web.UI.WebControls.TextBox DescriptionTextBox;
         
         /// <summary>
-        /// StartTimeDL control.
+        /// StartTimeLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StartTimeDL;
+        protected global::System.Web.UI.WebControls.Label StartTimeLabel;
         
         /// <summary>
-        /// EndTimeLbl control.
+        /// StartTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EndTimeLbl;
+        protected global::System.Web.UI.WebControls.DropDownList StartTime;
         
         /// <summary>
-        /// EndTimeDL control.
+        /// StartDayTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EndTimeDL;
+        protected global::System.Web.UI.WebControls.TextBox StartDayTextBox;
         
         /// <summary>
-        /// Calendar1 control.
+        /// rfvStartDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStartDay;
         
         /// <summary>
-        /// Calendar2 control.
+        /// StartDayCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar2;
+        protected global::System.Web.UI.WebControls.Calendar StartDayCalendar;
         
         /// <summary>
-        /// StartTimeText control.
+        /// EventsGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox StartTimeText;
+        protected global::System.Web.UI.WebControls.GridView EventsGridView;
         
         /// <summary>
-        /// EndTimeText control.
+        /// EventDataSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EndTimeText;
+        protected global::System.Web.UI.WebControls.SqlDataSource EventDataSource;
         
         /// <summary>
-        /// UsersListBox control.
+        /// EndLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox UsersListBox;
+        protected global::System.Web.UI.WebControls.Label EndLabel;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// EndTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.DropDownList EndTime;
         
         /// <summary>
-        /// AttendeeListBox control.
+        /// EndDayTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox AttendeeListBox;
+        protected global::System.Web.UI.WebControls.TextBox EndDayTextBox;
         
         /// <summary>
-        /// AttendeeButton control.
+        /// rfvEndDay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AttendeeButton;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEndDay;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// EndDayCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
-        /// <summary>
-        /// SubmitButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SubmitButton;
+        protected global::System.Web.UI.WebControls.Calendar EndDayCalendar;
         
         /// <summary>
         /// DeleteButton control.
@@ -184,12 +175,21 @@ namespace HolmenHighSchoolRoboticClub {
         protected global::System.Web.UI.WebControls.Button DeleteButton;
         
         /// <summary>
-        /// Reset control.
+        /// SaveButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Reset;
+        protected global::System.Web.UI.WebControls.Button SaveButton;
+        
+        /// <summary>
+        /// AttendeesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AttendeesButton;
     }
 }

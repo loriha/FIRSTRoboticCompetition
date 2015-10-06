@@ -162,7 +162,7 @@ button,
 input,
 select,
 textarea {
-  margin: 0;
+  margin: 0px 0 0 5px;
   font-family: inherit;
   font-size: 100%;
 }
@@ -1407,6 +1407,12 @@ pre code {
 table {
   max-width: 100%;
   background-color: transparent;
+    z-index: 1;
+    left: 21px;
+    top: 371px;
+    position: absolute;
+    height: 196px;
+    width: 252px;
 }
 
 th {
@@ -1678,7 +1684,6 @@ input[type="file"] {
 
 select[multiple],
 select[size] {
-  height: auto;
 }
 
 select optgroup {

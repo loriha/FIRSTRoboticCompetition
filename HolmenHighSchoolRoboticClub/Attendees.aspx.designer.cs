@@ -10,51 +10,69 @@
 namespace HolmenHighSchoolRoboticClub {
     
     
-    public partial class _Default {
+    public partial class Attendees {
         
         /// <summary>
-        /// UsersLink control.
+        /// UsersListBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink UsersLink;
+        protected global::System.Web.UI.WebControls.ListBox UsersListBox;
         
         /// <summary>
-        /// CalendarLink control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink CalendarLink;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
-        /// EmailLink control.
+        /// AddAttendeeButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink EmailLink;
+        protected global::System.Web.UI.WebControls.Button AddAttendeeButton;
         
         /// <summary>
-        /// DonateLink control.
+        /// ApplyButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink DonateLink;
+        protected global::System.Web.UI.WebControls.Button ApplyButton;
         
         /// <summary>
-        /// SponsorLink control.
+        /// CancelButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink SponsorLink;
+        protected global::System.Web.UI.WebControls.Button CancelButton;
+        
+        /// <summary>
+        /// RemoveButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RemoveButton;
+        
+        /// <summary>
+        /// AttendeesListBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox AttendeesListBox;
     }
 }
