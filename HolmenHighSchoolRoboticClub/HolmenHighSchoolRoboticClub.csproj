@@ -443,7 +443,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>64990</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64990/</IISUrl>
+          <IISUrl>http://localhost:2222/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

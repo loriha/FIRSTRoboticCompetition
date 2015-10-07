@@ -21,7 +21,7 @@
          </asp:DropDownList>
         <asp:TextBox ID="StartDayTextBox" runat="server" CssClass="form-control" Width="100px" Enabled="false" style="position:absolute; left:680px; top:258px; height: 44px;"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvStartDay" runat="server" ErrorMessage="Start Day is Required" ControlToValidate="StartDayTextBox" ForeColor="Red"></asp:RequiredFieldValidator>
-        <asp:Calendar ID="StartDayCalendar" runat="server" style="position:absolute; left:559px; top:325px; height: 144px;" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>   
+        <asp:Calendar ID="StartDayCalendar" runat="server" style="z-index: 102; left:559px; top:325px; height: 144px; width:144px" OnSelectionChanged="Calendar1_SelectionChanged"></asp:Calendar>   
          <br />
          <br />
          <br />
@@ -33,7 +33,7 @@
          <br />
          <br />
          <br />
-         <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="EventDataSource" Style="z-index: 101; left: 644px; position: absolute;
+         <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="EventDataSource2" Style="z-index: 101; left: 644px; position: absolute;
             top: 565px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="EventsGridView_SelectedIndexChanged">
              <Columns>
                  <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
@@ -41,12 +41,12 @@
                  <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
                  <asp:BoundField DataField="StartTime" HeaderText="StartTime" SortExpression="StartTime" />
                  <asp:BoundField DataField="EndTime" HeaderText="EndTime" SortExpression="EndTime" />
-                 <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" DataFormatString="{0:d}" />
-                 <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" DataFormatString="{0:d}" />
+                 <asp:BoundField DataField="StartDate" HeaderText="StartDate" SortExpression="StartDate" />
+                 <asp:BoundField DataField="EndDate" HeaderText="EndDate" SortExpression="EndDate" />
              </Columns>
              <SelectedRowStyle ForeColor="#3333CC" />
          </asp:GridView> 
-         <asp:SqlDataSource ID="EventDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:HolmenRoboticsClubConnectionString3 %>" SelectCommand="SELECT * FROM [Event] ORDER BY StartDate"></asp:SqlDataSource>
+         <asp:SqlDataSource ID="EventDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Event] ORDER BY StartDate"></asp:SqlDataSource>
          <br />
          <br />
          <br />
@@ -63,7 +63,7 @@
          </asp:DropDownList>
         <asp:TextBox ID="EndDayTextBox" runat="server" CssClass="form-control" Width="100px" Enabled="false" style="position:absolute; left:1080px; top:258px; height: 44px;"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvEndDay" runat="server" ErrorMessage="End Day is required" ControlToValidate="EndDayTextBox" Forecolor="Red"></asp:RequiredFieldValidator>
-        <asp:Calendar ID="EndDayCalendar" runat="server" style="position:absolute;left:959px; top:325px; height: 144px;" OnSelectionChanged="EndDayCalendar_SelectionChanged"></asp:Calendar>   
+        <asp:Calendar ID="EndDayCalendar" runat="server" style="z-index: 103;left:959px; top:325px; height: 144px; width:144px" OnSelectionChanged="EndDayCalendar_SelectionChanged"></asp:Calendar>   
          <br />
          <br />
          <br />
@@ -84,6 +84,6 @@
     <div class="form-group">
         <asp:Button ID="DeleteButton" runat="server" Text="Delete"  Style="z-index: 101; left: 640px; position: absolute; top: 515px; width: 150px; height: 44px;"/>
         <asp:Button ID="SaveButton" runat="server" Text="Save" Style="position: absolute; left: 980px; top: 515px; width: 150px; height: 44px;" OnClick="SaveButton_Click" />
-        <asp:Button ID="AttendeesButton" runat="server" Text="Attendees" Style="position: absolute; left: 810px; top: 515px; width: 150px; height: 44px;" OnClick="AttendeesButton_Click" />
+        <asp:Button ID="AttendeesButton" runat="server" Text="Attendees" Style="position: absolute; left: 810px; top: 515px; width: 150px; height: 42px;" OnClick="AttendeesButton_Click" />
     </div>
 </asp:Content>

@@ -21,7 +21,8 @@ namespace HolmenHighSchoolRoboticClub.Account
             if (result.Succeeded)
             {
 
-                SqlConnection con = new SqlConnection("data source=.; database=HolmenRoboticsClub; integrated security=SSPI");
+                SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection;  integrated security=false; Password=; User ID=;");
+                //SqlConnection con = new SqlConnection("server=.\\sqlexpress;" + "integrated security=SSPI;" + "database=aspnet-HolmenHighSchoolRoboticClub-20150920020616;" + "connection timeout=30;");
                 try 
                 {
 

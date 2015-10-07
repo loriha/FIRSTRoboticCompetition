@@ -2,8 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Add Event Attendees</h1>
     <div class="form-group">
-        <asp:ListBox ID="UsersListBox" runat="server" Style="position: fixed; left: 359px; top: 120px; height: 500px; width: 353px;" DataSourceID="SqlDataSource1" DataTextField="NAME" DataValueField="NAME" SelectionMode="Multiple"></asp:ListBox>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:HolmenRoboticsClubConnectionString3 %>" SelectCommand="SELECT [NAME] FROM [Users]"></asp:SqlDataSource>
+        <asp:ListBox ID="UsersListBox" runat="server" Style="position: fixed; left: 359px; top: 120px; height: 500px; width: 353px;" DataSourceID="UsersDataSource" DataTextField="NAME" DataValueField="NAME" SelectionMode="Multiple"></asp:ListBox>
+        <asp:SqlDataSource ID="UsersDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT [NAME] FROM [Users] ORDER BY [NAME]"></asp:SqlDataSource>
         <asp:Button ID="AddAttendeeButton" runat="server" Text="Add Attendee >>" Style="position: fixed; left: 361px; top: 639px; height: 35px;" OnClick="AddAttendeeButton_Click" />
         <asp:Button ID="ApplyButton" runat="server" Text="Apply" Style="position: fixed; left: 1041px; top: 639px; height: 35px;" OnClick="ApplyButton_Click1" />
         <asp:Button ID="CancelButton" runat="server" Text="Cancel" Style="position: fixed; left: 1100px; top: 639px; height: 35px;" OnClick="CancelButton_Click1"/>

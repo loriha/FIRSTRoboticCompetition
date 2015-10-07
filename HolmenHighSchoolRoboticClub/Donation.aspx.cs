@@ -19,7 +19,7 @@ namespace HolmenHighSchoolRoboticClub
         }
         protected void OnSubmit(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("data source=.; database=HolmenRoboticsClub; integrated security=SSPI");
+            SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
             try
             {
 

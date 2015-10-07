@@ -24,7 +24,7 @@ namespace HolmenHighSchoolRoboticClub
             //enable users hyperlink if logged in user is admin
             if (User.Identity.Name.Length > 0)
             {
-                SqlConnection con = new SqlConnection("data source=.; database=HolmenRoboticsClub; integrated security=SSPI");
+                SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
                 try
                 {
                     SqlCommand cmd = new SqlCommand("select role from users where email = @Email", con);

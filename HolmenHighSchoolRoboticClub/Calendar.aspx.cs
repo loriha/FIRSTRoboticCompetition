@@ -81,7 +81,7 @@ namespace HolmenHighSchoolRoboticClub
                 int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
                 // step 1: formulate a string containing the details of the
                 // database connection
-                string connectionString = "data source=.; database=HolmenRoboticsClub; integrated security=SSPI";
+                string connectionString = "data source=.; database=DefaultConnection; integrated security=SSPI";
 
                 // step 2: create a SqlConnection object to connect to the
                 // database, passing the connection string to the constructor
@@ -135,7 +135,7 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void SaveButton_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("data source=.; database=HolmenRoboticsClub; integrated security=SSPI");
+            SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
             try
             {
                 //insert an event record into the database along with the attendees for the event
