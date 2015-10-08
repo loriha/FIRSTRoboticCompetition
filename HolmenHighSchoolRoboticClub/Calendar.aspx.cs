@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
+using System.Configuration;
 
 namespace HolmenHighSchoolRoboticClub
 {
@@ -135,7 +136,8 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void SaveButton_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
             try
             {
                 //insert an event record into the database along with the attendees for the event
@@ -151,14 +153,16 @@ namespace HolmenHighSchoolRoboticClub
                 con.Open();
                 newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                 attendees = (List<string>)Session["Attendees"];//get the attendees from session state variable
-                foreach(string name in attendees)
+                if (attendees != null)
                 {
-                    SqlCommand cmd2 = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)",con);
-                    cmd2.Parameters.AddWithValue("@Name", name);
-                    cmd2.Parameters.AddWithValue("@EventID", newProdID);
-                    cmd2.ExecuteNonQuery();
+                    foreach (string name in attendees)
+                    {
+                        SqlCommand cmd2 = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)", con);
+                        cmd2.Parameters.AddWithValue("@Name", name);
+                        cmd2.Parameters.AddWithValue("@EventID", newProdID);
+                        cmd2.ExecuteNonQuery();
+                    }
                 }
-
                 EventsGridView.DataBind();
               
             }

@@ -13,7 +13,7 @@
     </div>
      <div class="form-group">
         <asp:Label ID="StartTimeLabel" runat="server" Text="Start Date & Time" CssClass="col-md-2 control-label"></asp:Label>
-         <asp:DropDownList ID="StartTime" runat="server" Height="44px" Width="100px" CssClass="form-control">
+         <asp:DropDownList ID="StartTime" runat="server" Height="44px" Width="100px" CssClass="form-control" style="position:absolute;left:559px; top:258px; height: 44px;">
              <asp:ListItem Value="0">6:00 AM</asp:ListItem>
              <asp:ListItem Value="1">6:30 AM</asp:ListItem>
              <asp:ListItem Value="2">7:00 AM</asp:ListItem>

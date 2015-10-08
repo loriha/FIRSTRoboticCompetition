@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace HolmenHighSchoolRoboticClub
 {
@@ -19,7 +20,7 @@ namespace HolmenHighSchoolRoboticClub
         }
         protected void OnSubmit(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             try
             {
 

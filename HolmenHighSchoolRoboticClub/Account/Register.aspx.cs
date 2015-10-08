@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using HolmenHighSchoolRoboticClub.Models;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace HolmenHighSchoolRoboticClub.Account
 {
@@ -20,9 +21,7 @@ namespace HolmenHighSchoolRoboticClub.Account
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
-
-                SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection;  integrated security=false; Password=; User ID=;");
-                //SqlConnection con = new SqlConnection("server=.\\sqlexpress;" + "integrated security=SSPI;" + "database=aspnet-HolmenHighSchoolRoboticClub-20150920020616;" + "connection timeout=30;");
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 try 
                 {
 

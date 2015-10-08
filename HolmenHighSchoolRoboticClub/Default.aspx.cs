@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace HolmenHighSchoolRoboticClub
 {
@@ -24,7 +25,9 @@ namespace HolmenHighSchoolRoboticClub
             //enable users hyperlink if logged in user is admin
             if (User.Identity.Name.Length > 0)
             {
-                SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
+                //SqlConnection con = new SqlConnection("data source=.; database=DefaultConnection; integrated security=SSPI");
                 try
                 {
                     SqlCommand cmd = new SqlCommand("select role from users where email = @Email", con);
