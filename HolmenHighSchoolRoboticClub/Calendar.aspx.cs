@@ -32,8 +32,7 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     EndTime.Items.FindByText((string)Session["EndTime"]).Selected = true;
                 }
-                StartDayTextBox.Text = (string)Session["StartDate"];
-                EndDayTextBox.Text = (string)Session["EndDate"];
+                EventDayTextBox.Text = (string)Session["EventDate"];
             }
             
             
@@ -54,15 +53,13 @@ namespace HolmenHighSchoolRoboticClub
             }
         }
   
-        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-        {
-            StartDayTextBox.Text = StartDayCalendar.SelectedDate.ToShortDateString();
-        }
+         
+       protected void EventDayCalendar_SelectionChanged(object sender, EventArgs e)
+       {
+            EventDayTextBox.Text = EventDayCalendar.SelectedDate.ToShortDateString();
+       }
 
-        protected void EndDayCalendar_SelectionChanged(object sender, EventArgs e)
-        {
-            EndDayTextBox.Text = EndDayCalendar.SelectedDate.ToShortDateString();
-        }
+     
 
         protected void AttendeesButton_Click(object sender, EventArgs e)
         {
@@ -71,8 +68,7 @@ namespace HolmenHighSchoolRoboticClub
             Session["Description"] = DescriptionTextBox.Text;
             Session["StartTime"] = StartTime.SelectedItem.ToString();
             Session["EndTime"] = EndTime.SelectedItem.ToString();
-            Session["StartDate"] = StartDayTextBox.Text;
-            Session["EndDate"] = EndDayTextBox.Text;
+            Session["EventDate"] = EventDayTextBox.Text;
 
 
             if (EventsGridView.SelectedValue != null)
@@ -142,14 +138,13 @@ namespace HolmenHighSchoolRoboticClub
             {
                 //insert an event record into the database along with the attendees for the event
                 Int32 newProdID = 0; 
-                SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,StartDate,EndDate) Values(@Title, @Description, @StartTime, @EndTime, @StartDate,@EndDate)" + "SELECT CAST(scope_identity() AS int)", con);
+                SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate) Values(@Title, @Description, @StartTime, @EndTime, @EventDate)" + "SELECT CAST(scope_identity() AS int)", con);
 
                 cmd.Parameters.AddWithValue("@Title", TitleTextBox.Text);
                 cmd.Parameters.AddWithValue("@Description", DescriptionTextBox.Text);
                 cmd.Parameters.AddWithValue("@StartTime", StartTime.SelectedItem.ToString());
                 cmd.Parameters.AddWithValue("@EndTime", EndTime.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@StartDate", StartDayTextBox.Text);
-                cmd.Parameters.AddWithValue("@EndDate", EndDayTextBox.Text);
+                cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
                 con.Open();
                 newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                 attendees = (List<string>)Session["Attendees"];//get the attendees from session state variable
@@ -181,6 +176,8 @@ namespace HolmenHighSchoolRoboticClub
             
 
         }
+
+         
 
     }
 }
