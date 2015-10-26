@@ -40,13 +40,13 @@ namespace HolmenHighSchoolRoboticClub {
         protected global::System.Web.UI.WebControls.Button AddAttendeeButton;
         
         /// <summary>
-        /// ApplyButton control.
+        /// SaveButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ApplyButton;
+        protected global::System.Web.UI.WebControls.Button SaveButton;
         
         /// <summary>
         /// CancelButton control.

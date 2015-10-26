@@ -5,6 +5,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using HolmenHighSchoolRoboticClub.Models;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace HolmenHighSchoolRoboticClub.Account
 {
@@ -35,6 +37,39 @@ namespace HolmenHighSchoolRoboticClub.Account
                 // To enable password failures to trigger lockout, change to shouldLockout: true
                 var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
 
+                if (result == SignInStatus.Success)
+                {
+
+                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
+                    try
+                    {
+
+                        SqlCommand cmd = new SqlCommand("SELECT Role, Name FROM Users WHERE Email = @EmailID", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@EmailID", Email.Text);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            int UserRole = (int)reader["Role"];
+                            String UserName = (String)reader["Name"];
+                            Session["UserEmail"] = Email.Text;
+                            Session["UserRole"] = UserRole;
+                            Session["UserName"] = UserName;
+                        }
+                    }
+                    catch(Exception error)
+                    {
+                        Response.Write(error.Message);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+                }
+                
+                
+                
                 switch (result)
                 {
                     case SignInStatus.Success:

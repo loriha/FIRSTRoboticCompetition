@@ -33,33 +33,46 @@ namespace HolmenHighSchoolRoboticClub
                     EndTime.Items.FindByText((string)Session["EndTime"]).Selected = true;
                 }
                 EventDayTextBox.Text = (string)Session["EventDate"];
-            }
-            
-            
-            //save the attendees the user selected on the attendee screen in a list
-            if (PreviousPage != null)
-            {
-                ListBox SourceListBox =
-                    (ListBox)PreviousPage.Master.FindControl("MainContent").FindControl("AttendeesListBox");
-                if (SourceListBox != null)
+                if(Session["SelectedEvent"] != null)
                 {
-                    for (int i = 0; i < SourceListBox.Items.Count; i++)
-                    {
-                        attendees.Add(SourceListBox.Items[i].ToString());
+                    EventsGridView.SelectedIndex = (int)Session["SelectedEvent"];
 
-                    }
                 }
-                Session["Attendees"] = attendees;
-            }
-        }
-  
-         
-       protected void EventDayCalendar_SelectionChanged(object sender, EventArgs e)
-       {
-            EventDayTextBox.Text = EventDayCalendar.SelectedDate.ToShortDateString();
-       }
 
-     
+                //populating attendees from screen data
+                if (Session["Attendees"] != null)
+                {
+                    attendees.Clear();
+                    attendees = (List<string>)Session["Attendees"];
+                }
+
+                if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
+                {
+                    ResetButton.Enabled = true;
+                    DeleteButton.Enabled = true;
+                    SaveButton.Enabled = true;
+                }
+                else
+                {
+                    ResetButton.Enabled = false;
+                    DeleteButton.Enabled = false;
+                    SaveButton.Enabled = false;
+                }
+            
+            }
+
+
+
+                   
+        }
+
+
+        protected void EventDayCalendar_SelectionChanged(object sender, EventArgs e)
+        {
+            EventDayTextBox.Text = EventDayCalendar.SelectedDate.ToShortDateString();
+        }
+
+
 
         protected void AttendeesButton_Click(object sender, EventArgs e)
         {
@@ -69,62 +82,84 @@ namespace HolmenHighSchoolRoboticClub
             Session["StartTime"] = StartTime.SelectedItem.ToString();
             Session["EndTime"] = EndTime.SelectedItem.ToString();
             Session["EventDate"] = EventDayTextBox.Text;
+            Session["SelectedEvent"] = EventsGridView.SelectedIndex;
 
+            if (Session["Attendees"] != null)//don't populate from database
+            {
+                attendees = (List<string>)Session["Attendees"];
+                
 
-            if (EventsGridView.SelectedValue != null)
+            }
+           
+            else if ( EventsGridView.SelectedValue != null)
             {
 
-                //populate the attendees listbox on the attendee page with the list from the db.
-                int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
-                // step 1: formulate a string containing the details of the
-                // database connection
-                string connectionString = "data source=.; database=DefaultConnection; integrated security=SSPI";
+                try
+                {
+                    //populate the attendees listbox on the attendee page with the list from the db.
+                    int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
 
-                // step 2: create a SqlConnection object to connect to the
-                // database, passing the connection string to the constructor
-                SqlConnection mySqlConnection = new SqlConnection(connectionString);
+                    // step 1: formulate a string containing the details of the
+                    // database connection
+                    string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-                // step 3: formulate a SELECT statement to retrieve the
-                // Id, Name, EventID rows from the Attendees table
-                string selectString = "SELECT Id, Name, EventID FROM Attendees WHERE EventID == eventID ";
+                    // step 2: create a SqlConnection object to connect to the
+                    // database, passing the connection string to the constructor
+                    SqlConnection mySqlConnection = new SqlConnection(connectionString);
 
-                // step 4: create a SqlCommand object to hold the SELECT statement
-                SqlCommand mySqlCommand = mySqlConnection.CreateCommand();
+                    // step 3: formulate a SELECT statement to retrieve the
+                    // Id, Name, EventID rows from the Attendees table
+                    string selectString = "SELECT Id, Name, EventID FROM Attendees WHERE EventID = @eventID";
+                                                
+                    // step 4: create a SqlCommand object to hold the SELECT statement
+                    SqlCommand mySqlCommand = mySqlConnection.CreateCommand();
 
-                // step 5: set the CommandText property of the SqlCommand object to
-                // the SELECT string
-                mySqlCommand.CommandText = selectString;
+                    // step 5: set the CommandText property of the SqlCommand object to
+                    // the SELECT string
+                    mySqlCommand.CommandText = selectString;
+                    mySqlCommand.Parameters.AddWithValue("@eventID", eventID);
+                    
+                    // step 6: create a SqlDataAdapter object
+                    SqlDataAdapter mySqlDataAdapter = new SqlDataAdapter();
 
-                // step 6: create a SqlDataAdapter object
-                SqlDataAdapter mySqlDataAdapter = new SqlDataAdapter();
+                    // step 7: set the SelectCommand property of the SqlAdapter object
+                    // to the SqlCommand object
+                    mySqlDataAdapter.SelectCommand = mySqlCommand;
 
-                // step 7: set the SelectCommand property of the SqlAdapter object
-                // to the SqlCommand object
-                mySqlDataAdapter.SelectCommand = mySqlCommand;
+                    // step 8: create a DataSet object to store the results of
+                    // the SELECT statement
+                    DataSet myDataSet = new DataSet();
 
-                // step 8: create a DataSet object to store the results of
-                // the SELECT statement
-                DataSet myDataSet = new DataSet();
+                    // step 9: open the database connection using the
+                    // Open() method of the SqlConnection object
+                    mySqlConnection.Open();
 
-                // step 9: open the database connection using the
-                // Open() method of the SqlConnection object
-                mySqlConnection.Open();
+                    // step 10: use the Fill() method of the SqlDataAdapter object to
+                    // retrieve the rows from the table, storing the rows locally
+                    // in a DataTable of the DataSet object
+                    string dataTableName = "Attendees";
+                    mySqlDataAdapter.Fill(myDataSet, dataTableName);
 
-                // step 10: use the Fill() method of the SqlDataAdapter object to
-                // retrieve the rows from the table, storing the rows locally
-                // in a DataTable of the DataSet object
-                string dataTableName = "Attendees";
-                mySqlDataAdapter.Fill(myDataSet, dataTableName);
+                    // step 11: get the DataTable object from the DataSet object
+                    DataTable myDataTable = myDataSet.Tables[dataTableName];
 
-                // step 11: get the DataTable object from the DataSet object
-                DataTable myDataTable = myDataSet.Tables[dataTableName];
+                    // step 12: close the database connection using the Close() method
+                    // of the SqlConnection object created in Step 2
+                    mySqlConnection.Close();
 
-                // step 12: close the database connection using the Close() method
-                // of the SqlConnection object created in Step 2
-                mySqlConnection.Close();
+                   //populating from the database
+                   // using a DataRow object to access each row in the DataTable
+                   foreach (DataRow myDataRow in myDataTable.Rows)
+                   {
+                       attendees.Add((string)myDataRow["Name"]);
+                   }
+                   Session["Attendees"] = attendees;
 
-                //step 13: save the DataTable to session
-                Session["AttendeeDataTable"] = myDataTable;
+                }
+                catch (Exception error)
+                {
+                    Response.Write(error.Message);
+                }
 
             }
             Server.Transfer("~/Attendees.aspx");
@@ -132,34 +167,60 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void SaveButton_Click(object sender, EventArgs e)
         {
+
+            if (EventsGridView.SelectedIndex != -1)
+                ModifySelection();
+            else
+            {
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
+                try
+                {
+                    //insert an event record into the database along with the attendees for the event
+                    Int32 newProdID = 0;
+                    SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate) Values(@Title, @Description, @StartTime, @EndTime, @EventDate)" + "SELECT CAST(scope_identity() AS int)", con);
+
+                    cmd.Parameters.AddWithValue("@Title", TitleTextBox.Text);
+                    cmd.Parameters.AddWithValue("@Description", DescriptionTextBox.Text);
+                    cmd.Parameters.AddWithValue("@StartTime", StartTime.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@EndTime", EndTime.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
+                    con.Open();
+                    newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
+                    EventsGridView.DataBind();
+
+                }
+                catch (Exception error)
+                {
+                    Response.Write(error.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+        }
+
+        private void ModifySelection()
+        {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
             try
             {
-                //insert an event record into the database along with the attendees for the event
-                Int32 newProdID = 0; 
-                SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate) Values(@Title, @Description, @StartTime, @EndTime, @EventDate)" + "SELECT CAST(scope_identity() AS int)", con);
+                //update an event record into the database along with the attendees for the event
 
-                cmd.Parameters.AddWithValue("@Title", TitleTextBox.Text);
-                cmd.Parameters.AddWithValue("@Description", DescriptionTextBox.Text);
-                cmd.Parameters.AddWithValue("@StartTime", StartTime.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@EndTime", EndTime.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
+                int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
+
+
+                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "' WHERE Id = @eventID", con);
+                cmd.Parameters.AddWithValue("@eventID", eventID);
+
+
                 con.Open();
-                newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
-                attendees = (List<string>)Session["Attendees"];//get the attendees from session state variable
-                if (attendees != null)
-                {
-                    foreach (string name in attendees)
-                    {
-                        SqlCommand cmd2 = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)", con);
-                        cmd2.Parameters.AddWithValue("@Name", name);
-                        cmd2.Parameters.AddWithValue("@EventID", newProdID);
-                        cmd2.ExecuteNonQuery();
-                    }
-                }
-                EventsGridView.DataBind();
+                cmd.ExecuteScalar();
               
+                EventsGridView.DataBind();
+
             }
             catch (Exception error)
             {
@@ -169,15 +230,97 @@ namespace HolmenHighSchoolRoboticClub
             {
                 con.Close();
             }
-        }
 
+        }
+        
+       private void InsertAttendees(SqlConnection con, int evtID)
+        {
+            try
+            {
+
+
+                SqlCommand cmd = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)", con);
+
+                cmd.CommandText = "DELETE FROM Attendees WHERE EventId = @evtID";
+                cmd.Parameters.AddWithValue("@evtID", evtID);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                foreach (string name in attendees)
+                {
+                    SqlCommand cmd2 = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)", con);
+                    cmd2.Parameters.AddWithValue("@Name", name);
+                    cmd2.Parameters.AddWithValue("@EventID", evtID);
+                    cmd2.ExecuteNonQuery();
+                }
+            }
+            catch (Exception error)
+            {
+                Response.Write(error.Message);
+            }
+           finally
+            {
+                con.Close();
+            }
+        }
+        
+        
+        
+        
+        
+        //update the calendar controls with the selected item in the events grid
         protected void EventsGridView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            TitleTextBox.Text = EventsGridView.SelectedRow.Cells[2].Text;
+            DescriptionTextBox.Text = EventsGridView.SelectedRow.Cells[3].Text;
+            StartTime.SelectedIndex = 0;/*TODO:EventsGridView.SelectedRow.Cells[4].Text;*/
+            EndTime.SelectedIndex = 0; ;/*TODO:EventsGridView.SelectedRow.Cells[5].Text;*/
+            EventDayTextBox.Text = EventsGridView.SelectedRow.Cells[6].Text;
 
         }
 
-         
+        protected void ResetButton_Click(object sender, EventArgs e)
+        {
+            TitleTextBox.Text = "";
+            DescriptionTextBox.Text = "";
+            StartTime.SelectedIndex = 0;
+            EndTime.SelectedIndex = 0; ;
+            EventDayTextBox.Text = "";
+            EventsGridView.SelectedIndex = -1;
+
+        }
+
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+            if (EventsGridView.SelectedValue != null)
+            {
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
+                try
+                {
+                    int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
+
+                    SqlCommand cmd = new SqlCommand("DELETE FROM Event WHERE Id = @evtID", con);
+
+                    cmd.Parameters.AddWithValue("@evtID", eventID);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception error)
+                {
+                    Response.Write(error.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+
+                EventsGridView.DataBind();
+                ResetButton_Click(sender, e);
+            }
+        }
+
 
     }
+   
 }
