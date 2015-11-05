@@ -33,7 +33,7 @@ namespace HolmenHighSchoolRoboticClub.Account
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
 
-                // This doen't count login failures towards account lockout
+                // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger lockout, change to shouldLockout: true
                 var result = signinManager.PasswordSignIn(Email.Text, Password.Text, RememberMe.Checked, shouldLockout: false);
 
@@ -45,7 +45,7 @@ namespace HolmenHighSchoolRoboticClub.Account
                     try
                     {
 
-                        SqlCommand cmd = new SqlCommand("SELECT Role, Name FROM Users WHERE Email = @EmailID", con);
+                        SqlCommand cmd = new SqlCommand("SELECT Role, ID, Name FROM Users WHERE Email = @EmailID", con);
                         con.Open();
                         cmd.Parameters.AddWithValue("@EmailID", Email.Text);
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -53,9 +53,11 @@ namespace HolmenHighSchoolRoboticClub.Account
                         {
                             int UserRole = (int)reader["Role"];
                             String UserName = (String)reader["Name"];
+                            int ID = (int)reader["ID"];
                             Session["UserEmail"] = Email.Text;
                             Session["UserRole"] = UserRole;
                             Session["UserName"] = UserName;
+                            Session["UserID"] = ID;
                         }
                     }
                     catch(Exception error)

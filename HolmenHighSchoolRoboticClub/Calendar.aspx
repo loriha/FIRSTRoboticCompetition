@@ -113,6 +113,7 @@
                          <asp:BoundField DataField="StartTime" HeaderText="StartTime" SortExpression="StartTime" />
                          <asp:BoundField DataField="EndTime" HeaderText="EndTime" SortExpression="EndTime" />
                          <asp:BoundField DataField="EventDate" HeaderText="EventDate" SortExpression="EventDate" DataFormatString="{0:MM/dd/yy}" />
+                         <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
                      </Columns>
                      <SelectedRowStyle ForeColor="#3333CC" />
                  </asp:GridView>
@@ -156,6 +157,7 @@
             </div>
             <div class="form-group">
                 <asp:Button ID="SaveButton" runat="server" Text="Save" Style="position: absolute; left: 288px; top: 725px; width: 80px; height: 44px;" OnClick="SaveButton_Click" TabIndex="9" />
+                <asp:Button ID="CancelButton" runat="server" Text="Cancel" Style="position: absolute; left: 373px; top: 725px; width: 80px; height: 44px;" OnClick="CancelButton_Click" TabIndex="10"/>
             </div>
       
 </asp:Content>

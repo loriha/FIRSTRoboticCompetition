@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace HolmenHighSchoolRoboticClub
 {
@@ -88,10 +89,7 @@ namespace HolmenHighSchoolRoboticClub
             if (Session["Attendees"] != null)//don't populate from database
             {
                 attendees = (List<string>)Session["Attendees"];
-                
-
             }
-           
             else if ( EventsGridView.SelectedValue != null)
             {
 
@@ -179,13 +177,15 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     //insert an event record into the database along with the attendees for the event
                     Int32 newProdID = 0;
-                    SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate) Values(@Title, @Description, @StartTime, @EndTime, @EventDate)" + "SELECT CAST(scope_identity() AS int)", con);
+                    SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate,Creator,Status) Values(@Title, @Description, @StartTime, @EndTime, @EventDate, @Creator, @Status)" + "SELECT CAST(scope_identity() AS int)", con);
 
                     cmd.Parameters.AddWithValue("@Title", TitleTextBox.Text);
                     cmd.Parameters.AddWithValue("@Description", DescriptionTextBox.Text);
                     cmd.Parameters.AddWithValue("@StartTime", StartTime.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@EndTime", EndTime.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
+                    cmd.Parameters.AddWithValue("@Status", "Active");
+                    cmd.Parameters.AddWithValue("@Creator", (int)Session["UserID"]);
                     con.Open();
                     newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                     InsertAttendees(con, newProdID);
@@ -215,9 +215,9 @@ namespace HolmenHighSchoolRoboticClub
                 int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
 
 
-                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "' WHERE Id = @eventID", con);
+                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', Status = @Status WHERE Id = @eventID", con);
                 cmd.Parameters.AddWithValue("@eventID", eventID);
-
+                cmd.Parameters.AddWithValue("@Status", "Active");
 
                 con.Open();
                 cmd.ExecuteScalar();
@@ -300,6 +300,7 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
+                     
             if (EventsGridView.SelectedValue != null)
             {
 
@@ -307,13 +308,31 @@ namespace HolmenHighSchoolRoboticClub
 
                 try
                 {
+                    
                     int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
+       
+                        
+                    if(Session["Role"] != null)
+                    {
+                        if ((int)Session["Role"] == Constants.Admin)
+                        {
+                            SqlCommand cmd = new SqlCommand("DELETE FROM Event WHERE Id = @evtID");
 
-                    SqlCommand cmd = new SqlCommand("DELETE FROM Event WHERE Id = @evtID", con);
+                            cmd.Parameters.AddWithValue("@evtID", eventID);
+                            cmd.ExecuteNonQuery();
+                            cmd.CommandText = "DELETE FROM Attendees WHERE EventId = @evtID";
+                            cmd.Parameters.AddWithValue("@evtID", eventID);
 
-                    cmd.Parameters.AddWithValue("@evtID", eventID);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                            cmd.ExecuteNonQuery();
+                        }
+                        else
+                            MessageBox.Show("You must be Admin to delete an event", "Important Message");
+                     }
+                    
+                    
+                    
+
+                    
                 }
                 catch (Exception error)
                 {
@@ -444,6 +463,60 @@ namespace HolmenHighSchoolRoboticClub
                     break;
             }
             return index;
+        }
+        //Called when a user hits the cancel button on the calendar screen to cancel an event
+        protected void CancelButton_Click(object sender, EventArgs e)
+        {
+            
+            
+            if (EventsGridView.SelectedValue != null)
+            {
+
+                SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+
+                try
+                {
+                    int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
+
+                    SqlCommand cmd = new SqlCommand("SELECT Creator FROM Event WHERE Id = @eventID",con);
+                    cmd.Parameters.AddWithValue("@eventID",eventID);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        int userID = (int)reader["Creator"];
+                        
+                        if(Session["UserID"] != null)
+                        {
+                            if ((int)Session["UserID"] == userID )
+                            {
+                                 cmd.CommandText = "UPDATE Event SET Status = @Status WHERE Id = @evtID";
+                                 cmd.Parameters.AddWithValue("@evtID", eventID);
+                                 cmd.Parameters.AddWithValue("@Status", "Cancelled");
+                                 reader.Close();
+                                 cmd.ExecuteScalar();
+                                 EventsGridView.DataBind();
+                            }
+                            else
+                                MessageBox.Show("You must be the creator of the event to cancel it", "Important Message");
+                        }
+                        else
+                           MessageBox.Show("You must be the creator of the event to cancel it", "Important Message");
+
+                    }
+
+                }
+                catch (Exception error)
+                {
+                    Response.Write(error.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+            else
+                MessageBox.Show("You must select an event to cancel an event.", "Important Message");
         }
     }
    
