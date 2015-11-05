@@ -32,8 +32,8 @@ namespace HolmenHighSchoolRoboticClub
                     }
                 }
 
-                
-                if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
+                //code for admin only edit calendar
+               /* if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
                 {
                     AddAttendeeButton.Enabled = true;
                     RemoveButton.Enabled = true;
@@ -44,7 +44,7 @@ namespace HolmenHighSchoolRoboticClub
                     AddAttendeeButton.Enabled = false;
                     RemoveButton.Enabled = false;
                     SaveButton.Enabled = false;
-                }
+                }*/
             }
        }
        

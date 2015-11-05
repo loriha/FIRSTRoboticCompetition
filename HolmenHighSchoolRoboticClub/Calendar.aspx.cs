@@ -45,8 +45,8 @@ namespace HolmenHighSchoolRoboticClub
                     attendees.Clear();
                     attendees = (List<string>)Session["Attendees"];
                 }
-
-                if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
+                //code for admin only edit calendar
+                /*if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
                 {
                     ResetButton.Enabled = true;
                     DeleteButton.Enabled = true;
@@ -57,7 +57,7 @@ namespace HolmenHighSchoolRoboticClub
                     ResetButton.Enabled = false;
                     DeleteButton.Enabled = false;
                     SaveButton.Enabled = false;
-                }
+                }*/
             
             }
 
@@ -69,6 +69,7 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void EventDayCalendar_SelectionChanged(object sender, EventArgs e)
         {
+
             EventDayTextBox.Text = EventDayCalendar.SelectedDate.ToShortDateString();
         }
 
@@ -169,7 +170,7 @@ namespace HolmenHighSchoolRoboticClub
         {
 
             if (EventsGridView.SelectedIndex != -1)
-                ModifySelection();
+                ModifySelection();//modifies the selected item in gridview
             else
             {
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
@@ -187,6 +188,8 @@ namespace HolmenHighSchoolRoboticClub
                     cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
                     con.Open();
                     newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
+                    InsertAttendees(con, newProdID);
+
                     EventsGridView.DataBind();
 
                 }
@@ -218,7 +221,7 @@ namespace HolmenHighSchoolRoboticClub
 
                 con.Open();
                 cmd.ExecuteScalar();
-              
+                InsertAttendees(con, eventID);
                 EventsGridView.DataBind();
 
             }
@@ -238,12 +241,20 @@ namespace HolmenHighSchoolRoboticClub
             try
             {
 
+                if (Session["Attendees"] != null)//don't populate from database
+                {
+                    attendees = (List<string>)Session["Attendees"];
 
+
+                }
+           
+                
+                
                 SqlCommand cmd = new SqlCommand("insert into Attendees(Name,EventID) Values(@Name,@EventID)", con);
 
                 cmd.CommandText = "DELETE FROM Attendees WHERE EventId = @evtID";
                 cmd.Parameters.AddWithValue("@evtID", evtID);
-                con.Open();
+                
                 cmd.ExecuteNonQuery();
                 foreach (string name in attendees)
                 {
@@ -257,10 +268,7 @@ namespace HolmenHighSchoolRoboticClub
             {
                 Response.Write(error.Message);
             }
-           finally
-            {
-                con.Close();
-            }
+          
         }
         
         
@@ -272,8 +280,8 @@ namespace HolmenHighSchoolRoboticClub
         {
             TitleTextBox.Text = EventsGridView.SelectedRow.Cells[2].Text;
             DescriptionTextBox.Text = EventsGridView.SelectedRow.Cells[3].Text;
-            StartTime.SelectedIndex = 0;/*TODO:EventsGridView.SelectedRow.Cells[4].Text;*/
-            EndTime.SelectedIndex = 0; ;/*TODO:EventsGridView.SelectedRow.Cells[5].Text;*/
+            StartTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[4].Text);
+            EndTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[5].Text);
             EventDayTextBox.Text = EventsGridView.SelectedRow.Cells[6].Text;
 
         }
@@ -286,6 +294,7 @@ namespace HolmenHighSchoolRoboticClub
             EndTime.SelectedIndex = 0; ;
             EventDayTextBox.Text = "";
             EventsGridView.SelectedIndex = -1;
+            attendees.Clear();
 
         }
 
@@ -319,8 +328,123 @@ namespace HolmenHighSchoolRoboticClub
                 ResetButton_Click(sender, e);
             }
         }
-
-
+        //Event times are stored as strings in the database. Convert the strings to combo box index.
+        private int toIndex(string time)
+        {
+            int index = 0;
+            switch(time)
+            {
+                case "6:00 AM":
+                    index = 0;
+                    break;
+                case "6:30 AM":
+                    index = 1;
+                    break;
+                case "7:00 AM":
+                    index = 2;
+                    break;
+                case "7:30 AM":
+                    index = 3;
+                    break;
+                case "8:00 AM":
+                    index = 4;
+                    break;
+                case "8:30 AM":
+                    index = 5;
+                    break;
+                case "9:00 AM":
+                    index = 6;
+                    break;
+                case "9:30 AM":
+                    index = 7;
+                    break;
+                case "10:00 AM":
+                    index = 8;
+                    break;
+                case "10:30 AM":
+                    index = 9;
+                    break;
+                case "11:00 AM":
+                    index = 10;
+                    break;
+                case "11:30 AM":
+                    index = 11;
+                    break;
+                case "12:00 PM":
+                    index = 12;
+                    break;
+                case "12:30 PM":
+                    index = 13;
+                    break;
+                case "1:00 PM":
+                    index = 14;
+                    break;
+                case "1:30 PM":
+                    index = 15;
+                    break;
+                case "2:00 PM":
+                    index = 16;
+                    break;
+                case "2:30 PM":
+                    index = 17;
+                    break;
+                case "3:00 PM":
+                    index = 18;
+                    break;
+                case "3:30 PM":
+                    index = 19;
+                    break;
+                case "4:00 PM":
+                    index = 20;
+                    break;
+                case "4:30 PM":
+                    index = 21;
+                    break;
+                case "5:00 PM":
+                    index = 22;
+                    break;
+                case "5:30 PM":
+                    index = 23;
+                    break;
+                case "6:00 PM":
+                    index = 24;
+                    break;
+                case "6:30 PM":
+                    index = 25;
+                    break;
+                case "7:00 PM":
+                    index = 26;
+                    break;
+                case "7:30 PM":
+                    index = 27;
+                    break;
+                case "8:00 PM":
+                    index = 28;
+                    break;
+                case "8:30 PM":
+                    index = 29;
+                    break;
+                case "9:00 PM":
+                    index = 30;
+                    break;
+                case "9:30 PM":
+                    index = 31;
+                    break;
+                case "10:00 PM":
+                    index = 32;
+                    break;
+                case "10:30 PM":
+                    index = 33;
+                    break;
+                case "11:00 PM":
+                    index = 34;
+                    break;
+                default:
+                    index = 0;
+                    break;
+            }
+            return index;
+        }
     }
    
 }
