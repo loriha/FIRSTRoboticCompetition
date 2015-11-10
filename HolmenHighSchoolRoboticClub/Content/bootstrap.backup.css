@@ -162,7 +162,7 @@ button,
 input,
 select,
 textarea {
-  margin: 0;
+  margin: 0px 0 0 5px;
   font-family: inherit;
   font-size: 100%;
 }
@@ -1407,6 +1407,12 @@ pre code {
 table {
   max-width: 100%;
   background-color: transparent;
+    z-index: 1;
+    left: 35px;
+    top: 80px;
+    position: absolute;
+    height: 1px;
+    width: 375px;
 }
 
 th {
@@ -1678,7 +1684,6 @@ input[type="file"] {
 
 select[multiple],
 select[size] {
-  height: auto;
 }
 
 select optgroup {
@@ -1718,7 +1723,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .form-control {
   display: block;
-  width: 100%;
+  width: 50%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -1754,6 +1759,7 @@ textarea.form-control {
 
 .form-group {
   margin-bottom: 15px;
+    height: 118px;
 }
 
 .radio,
