@@ -47,6 +47,6 @@ C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\Holm
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.OAuth.xml
-C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.csprojResolveAssemblyReference.cache
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.dll
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.pdb
+C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.csprojResolveAssemblyReference.cache
