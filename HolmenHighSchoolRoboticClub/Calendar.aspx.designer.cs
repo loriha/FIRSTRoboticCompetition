@@ -58,6 +58,15 @@ namespace HolmenHighSchoolRoboticClub {
         protected global::System.Web.UI.WebControls.TextBox DescriptionTextBox;
         
         /// <summary>
+        /// rfvEventDay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEventDay;
+        
+        /// <summary>
         /// StartTime control.
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace HolmenHighSchoolRoboticClub {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label EndTimeLabel;
-        
-        /// <summary>
-        /// rfvEventDay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEventDay;
         
         /// <summary>
         /// EndTime control.
@@ -182,5 +182,14 @@ namespace HolmenHighSchoolRoboticClub {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SaveButton;
+        
+        /// <summary>
+        /// CancelButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelButton;
     }
 }

@@ -6,54 +6,66 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
+
 
 namespace HolmenHighSchoolRoboticClub
 {
     public partial class Attendees : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {   
-            //populating from the database
-            DataTable myDataTable = (DataTable) Session["AttendeeDataTable"];
-            if (myDataTable != null)
-            {
-                // using a DataRow object to access each row in the DataTable
-                foreach (DataRow myDataRow in myDataTable.Rows)
-                {
-                    AttendeesListBox.Items.Add((string)myDataRow["Name"]);
+        List<string> attendees = new List<string>();
 
-                }
-            }
-            //populating from screen data
-            if(Session["Attendees"] != null)
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+
+            if (IsPostBack == false)
             {
-                List<string> attendees = new List<string>();
-                attendees = (List<string>)Session["Attendees"];
-                foreach (string li in attendees)
+                //populating from screen data
+                if (Session["Attendees"] != null)
                 {
-                    AttendeesListBox.Items.Add(li);
+                    AttendeesListBox.Items.Clear();
+                    attendees = (List<string>)Session["Attendees"];
+                    foreach (string li in attendees)
+                    {
+                        AttendeesListBox.Items.Add(li);
+                    }
                 }
+
+                //code for admin only edit calendar
+               /* if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
+                {
+                    AddAttendeeButton.Enabled = true;
+                    RemoveButton.Enabled = true;
+                    SaveButton.Enabled = true;
+                }
+                else
+                {
+                    AddAttendeeButton.Enabled = false;
+                    RemoveButton.Enabled = false;
+                    SaveButton.Enabled = false;
+                }*/
             }
        }
-
+       
         protected void ApplyButton_Click1(object sender, EventArgs e)
         {
 
-            List<string> attendees = new List<string>();
             foreach (ListItem li in AttendeesListBox.Items)
             {
-                attendees.Add(AttendeesListBox.SelectedItem.ToString());
+               
+                attendees.Add(li.ToString());
             }
 
-            if (attendees.Count > 0)
-            {
-                Session["Attendees"] = attendees;
-            }
+            Session["Attendees"] = attendees;
+
             Server.Transfer("~/Calendar.aspx");
         }
 
+         
         protected void CancelButton_Click1(object sender, EventArgs e)
         {
+            //attendees.Clear();
             Server.Transfer("~/Calendar.aspx");
         }
 
@@ -72,8 +84,20 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void RemoveButton_Click1(object sender, EventArgs e)
         {
-             int index = AttendeesListBox.SelectedIndex;
-             AttendeesListBox.Items.RemoveAt(index);
+            try
+            { 
+                int index = AttendeesListBox.SelectedIndex;
+                if (index != -1)
+                {
+                    attendees.Remove(AttendeesListBox.SelectedItem.ToString());
+                    AttendeesListBox.Items.RemoveAt(index);
+                }
+                
+            }
+            catch(Exception error)
+            {
+                Response.Write(error.Message);
+            }
         }
     }
 }

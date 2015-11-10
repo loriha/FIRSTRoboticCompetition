@@ -1408,11 +1408,11 @@ table {
   max-width: 100%;
   background-color: transparent;
     z-index: 1;
-    left: 31px;
-    top: 443px;
+    left: 35px;
+    top: 80px;
     position: absolute;
-    height: 224px;
-    width: 345px;
+    height: 1px;
+    width: 375px;
 }
 
 th {
@@ -1723,7 +1723,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .form-control {
   display: block;
-  width: 100%;
+  width: 50%;
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
@@ -1759,6 +1759,7 @@ textarea.form-control {
 
 .form-group {
   margin-bottom: 15px;
+    height: 118px;
 }
 
 .radio,

@@ -10,69 +10,69 @@
 namespace HolmenHighSchoolRoboticClub {
     
     
-    public partial class Attendees {
+    public partial class WebForm2 {
         
         /// <summary>
-        /// UsersListBox control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox UsersListBox;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UsersDataSource control.
+        /// Calendar1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource UsersDataSource;
+        protected global::System.Web.UI.WebControls.Calendar Calendar1;
         
         /// <summary>
-        /// AddAttendeeButton control.
+        /// Calendar2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddAttendeeButton;
+        protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
-        /// SaveButton control.
+        /// Calendar3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveButton;
+        protected global::System.Web.UI.WebControls.Calendar Calendar3;
         
         /// <summary>
-        /// CancelButton control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelButton;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// RemoveButton control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button RemoveButton;
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
-        /// AttendeesListBox control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox AttendeesListBox;
+        protected global::System.Web.UI.WebControls.Button Button3;
     }
 }

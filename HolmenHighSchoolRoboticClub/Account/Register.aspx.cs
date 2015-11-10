@@ -27,13 +27,18 @@ namespace HolmenHighSchoolRoboticClub.Account
 
                     Session["UserName"] = NameTextBox.Text;
                     Session["UserRole"] = Roles.Text;
+<<<<<<< HEAD
                     SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email,Approved) Values(@Name, @Role, @Email,0)", con);
+=======
+                    SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email) Values(@Name, @Role, @Email)" + "SELECT CAST(scope_identity() AS int)", con);
+>>>>>>> origin/master
 
                     cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
                     cmd.Parameters.AddWithValue("@Role", Roles.SelectedIndex.ToString());
                     cmd.Parameters.AddWithValue("@Email", Email.Text);
                     con.Open();
-                    cmd.ExecuteNonQuery();
+                    int userID = cmd.ExecuteNonQuery();
+                    Session["UserID"] = userID;
                     
                  } 
                 catch(Exception error)
