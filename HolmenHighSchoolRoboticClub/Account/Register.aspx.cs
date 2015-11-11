@@ -27,7 +27,11 @@ namespace HolmenHighSchoolRoboticClub.Account
 
                     Session["UserName"] = NameTextBox.Text;
                     Session["UserRole"] = Roles.Text;
-                    SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email) Values(@Name, @Role, @Email)" + "SELECT CAST(scope_identity() AS int)", con);
+
+                    //SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email,Approved) Values(@Name, @Role, @Email,0)", con);
+
+                    SqlCommand cmd = new SqlCommand("insert into Users (Name,Role,Email,Approved) Values(@Name, @Role, @Email,0)" + "SELECT CAST(scope_identity() AS int)", con);
+
 
                     cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
                     cmd.Parameters.AddWithValue("@Role", Roles.SelectedIndex.ToString());
@@ -51,7 +55,8 @@ namespace HolmenHighSchoolRoboticClub.Account
                 //string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
                 //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
 
-                signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
+                //*** TO DO: display message to user approval pending
+                //signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                
 

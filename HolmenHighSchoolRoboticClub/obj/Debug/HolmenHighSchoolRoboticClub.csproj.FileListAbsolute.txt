@@ -49,4 +49,63 @@ C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\Holm
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.dll
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.pdb
+<<<<<<< HEAD
+<<<<<<< HEAD
 C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.csprojResolveAssemblyReference.cache
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\HolmenHighSchoolRoboticClub.dll.config
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\HolmenHighSchoolRoboticClub.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\HolmenHighSchoolRoboticClub.pdb
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Antlr3.Runtime.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\AspNet.ScriptManager.bootstrap.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\AspNet.ScriptManager.jQuery.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\EntityFramework.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\EntityFramework.SqlServer.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.FriendlyUrls.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.ScriptManager.MSAjax.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.ScriptManager.WebForms.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Newtonsoft.Json.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Owin.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\System.Web.Optimization.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\System.Web.Providers.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\WebGrease.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\System.Web.Optimization.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Antlr3.Runtime.pdb
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Newtonsoft.Json.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.FriendlyUrls.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\EntityFramework.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\EntityFramework.SqlServer.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\System.Web.Providers.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.csprojResolveAssemblyReference.cache
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.dll
+C:\Users\irdcsv\Documents\GitHub\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.pdb
+=======
+>>>>>>> origin/master
+=======
+C:\Users\Lori\Documents\Visual Studio 2013\Projects\FIRSTRoboticCompetition\HolmenHighSchoolRoboticClub\obj\Debug\HolmenHighSchoolRoboticClub.csprojResolveAssemblyReference.cache
+>>>>>>> a7d46e2f64c5c1d1413e0d96c5c015cbdb22a858
