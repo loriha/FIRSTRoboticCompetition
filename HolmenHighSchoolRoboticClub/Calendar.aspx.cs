@@ -92,8 +92,16 @@ namespace HolmenHighSchoolRoboticClub
             }
             else if ( EventsGridView.SelectedValue != null)
             {
+                getAttendeesFromDB();
+              
 
-                try
+            }
+            Server.Transfer("~/Attendees.aspx");
+        }
+
+        private void getAttendeesFromDB()
+        {
+              try
                 {
                     //populate the attendees listbox on the attendee page with the list from the db.
                     int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
@@ -159,11 +167,10 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     Response.Write(error.Message);
                 }
-
-            }
-            Server.Transfer("~/Attendees.aspx");
         }
-
+        
+        
+        
         protected void SaveButton_Click(object sender, EventArgs e)
         {
 
@@ -217,7 +224,7 @@ namespace HolmenHighSchoolRoboticClub
 
                 SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', Status = @Status WHERE Id = @eventID", con);
                 cmd.Parameters.AddWithValue("@eventID", eventID);
-                cmd.Parameters.AddWithValue("@Status", "Active");
+                cmd.Parameters.AddWithValue("@Status", EventsGridView.SelectedRow.Cells[7].Text);
 
                 con.Open();
                 cmd.ExecuteScalar();
@@ -283,6 +290,7 @@ namespace HolmenHighSchoolRoboticClub
             StartTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[4].Text);
             EndTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[5].Text);
             EventDayTextBox.Text = EventsGridView.SelectedRow.Cells[6].Text;
+            getAttendeesFromDB();
 
         }
 
