@@ -19,7 +19,6 @@ namespace HolmenHighSchoolRoboticClub
         private void Page_Load(object sender, System.EventArgs e)
         {
 
-
             if (!IsPostBack)
             {
                 //populate the controls from session state
@@ -46,6 +45,7 @@ namespace HolmenHighSchoolRoboticClub
                     attendees.Clear();
                     attendees = (List<string>)Session["Attendees"];
                 }
+
                 //code for admin only edit calendar
                 /*if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
                 {
@@ -61,7 +61,7 @@ namespace HolmenHighSchoolRoboticClub
                 }*/
             
             }
-
+          
 
 
                    
@@ -308,39 +308,27 @@ namespace HolmenHighSchoolRoboticClub
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
-                     
             if (EventsGridView.SelectedValue != null)
             {
-
                 SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-
                 try
                 {
-                    
                     int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
-       
-                        
-                    if(Session["Role"] != null)
+                    if(Session["UserRole"] != null)
                     {
-                        if ((int)Session["Role"] == Constants.Admin)
+                        if ((int)Session["UserRole"] == Constants.Admin)
                         {
-                            SqlCommand cmd = new SqlCommand("DELETE FROM Event WHERE Id = @evtID");
-
+                            SqlCommand cmd = new SqlCommand("DELETE FROM Event WHERE Id = @evtID",con);
+                            con.Open();
                             cmd.Parameters.AddWithValue("@evtID", eventID);
                             cmd.ExecuteNonQuery();
-                            cmd.CommandText = "DELETE FROM Attendees WHERE EventId = @evtID";
-                            cmd.Parameters.AddWithValue("@evtID", eventID);
-
+                            cmd.CommandText = "DELETE FROM Attendees WHERE EventId = @eventID";
+                            cmd.Parameters.AddWithValue("@eventID", eventID);
                             cmd.ExecuteNonQuery();
                         }
                         else
                             MessageBox.Show("You must be Admin to delete an event", "Important Message");
                      }
-                    
-                    
-                    
-
-                    
                 }
                 catch (Exception error)
                 {
@@ -350,7 +338,6 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     con.Close();
                 }
-
                 EventsGridView.DataBind();
                 ResetButton_Click(sender, e);
             }
@@ -526,6 +513,8 @@ namespace HolmenHighSchoolRoboticClub
             else
                 MessageBox.Show("You must select an event to cancel an event.", "Important Message");
         }
+
+      
     }
    
 }

@@ -18,7 +18,6 @@ namespace HolmenHighSchoolRoboticClub
         protected void Page_Load(object sender, EventArgs e)
         {
 
-
             if (IsPostBack == false)
             {
                 //populating from screen data
@@ -31,6 +30,7 @@ namespace HolmenHighSchoolRoboticClub
                         AttendeesListBox.Items.Add(li);
                     }
                 }
+               
 
                 //code for admin only edit calendar
                /* if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
@@ -46,6 +46,7 @@ namespace HolmenHighSchoolRoboticClub
                     SaveButton.Enabled = false;
                 }*/
             }
+           
        }
        
         protected void ApplyButton_Click1(object sender, EventArgs e)

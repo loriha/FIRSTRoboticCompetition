@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Calendar.aspx.cs" Inherits="HolmenHighSchoolRoboticClub.Calendar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h1>Schedule an Event</h1>
+    <h1>Schedule an Event
+    </h1>
     
             <div class="form-group">
                 <asp:Label ID="TitleLabel" runat="server" Text="Title" CssClass="col-md-2 control-label" style="position:absolute;left:26px; top:130px; height: 44px;"></asp:Label>
@@ -10,7 +11,6 @@
             <div class="form-group">
                 <asp:Label ID="DescriptionLabel" runat="server" Text="Description" CssClass="col-md-2 control-label" style="position:absolute;left:26px; top:200px; height: 44px;"></asp:Label>
                 <asp:TextBox ID="DescriptionTextBox" runat="server" CssClass="form-control" style="position:absolute;left:26px; top:220px; height: 44px; width:300px;" TextMode="MultiLine" TabIndex="1"></asp:TextBox>
-      
                 <asp:RequiredFieldValidator ID="rfvEventDay" runat="server" ErrorMessage="Event Day is Required" ControlToValidate="EventDayTextBox" ForeColor="Red"></asp:RequiredFieldValidator>
       
             </div>
@@ -104,6 +104,8 @@
                  <br />
                  <br />
                  <br />
+                 <asp:TextBox ID="SearchCriteria" runat="server" style="position:absolute; left:666px; top:107px; height: 44px; width: 235px;"></asp:TextBox>
+                 <asp:Button ID="SearchButton" runat="server" Text="Search" style="position:absolute; left:900px; top:107px; height: 44px; width: 200px;" CausesValidation="False" />
                  <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False" DataSourceID="EventDataSource1" Style="left: 666px; position: absolute;
                     top: 151px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="EventsGridView_SelectedIndexChanged" GridLines="None" AllowPaging="True" DataKeyNames="Id" ShowHeaderWhenEmpty="True">
                      <Columns>
@@ -113,11 +115,16 @@
                          <asp:BoundField DataField="StartTime" HeaderText="StartTime" SortExpression="StartTime" />
                          <asp:BoundField DataField="EndTime" HeaderText="EndTime" SortExpression="EndTime" />
                          <asp:BoundField DataField="EventDate" HeaderText="EventDate" SortExpression="EventDate" DataFormatString="{0:MM/dd/yy}" />
+                         <asp:BoundField DataField="Creator" HeaderText="Creator" SortExpression="Creator" />
                          <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
                      </Columns>
                      <SelectedRowStyle ForeColor="#3333CC" />
                  </asp:GridView>
-                 <asp:SqlDataSource ID="EventDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Event] ORDER BY [EventDate]"></asp:SqlDataSource>
+                 <asp:SqlDataSource ID="EventDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Event] WHERE ([Title] LIKE '%' + @Title + '%')">
+                     <SelectParameters>
+                         <asp:ControlParameter ControlID="SearchCriteria" DefaultValue="%" Name="Title" PropertyName="Text" Type="String" />
+                     </SelectParameters>
+                 </asp:SqlDataSource>
                  <br />
                  <br />
                  <br />
@@ -139,10 +146,10 @@
                  <br />
                  <br />
                  <br />
-                 <asp:Button ID="ResetButton" runat="server" Text="Reset" Style="position: absolute; left: 33px; top: 725px; width: 80px; height: 44px;" OnClick="ResetButton_Click" TabIndex="6" />
+                 <asp:Button ID="ResetButton" runat="server" Text="Reset" Style="position: absolute; left: 33px; top: 725px; width: 80px; height: 44px; right: 1064px;" OnClick="ResetButton_Click" TabIndex="6" CausesValidation="False" EnableViewState="False" />
                  <br />
-                <asp:Button ID="DeleteButton" runat="server" Text="Delete"  Style="position: absolute; left: 118px; position: absolute; top: 725px; width: 80px; height: 44px;" OnClick="DeleteButton_Click" TabIndex="7"/>
-                <asp:Button ID="AttendeesButton" runat="server" Text="Attendees" Style="position: absolute; left: 203px; top: 725px; width: 80px; height: 44px;" OnClick="AttendeesButton_Click" CausesValidation="False" TabIndex="8" />
+                <asp:Button ID="DeleteButton" runat="server" Text="Delete"  Style="position: absolute; left: 118px; position: absolute; top: 725px; width: 80px; height: 44px;" OnClick="DeleteButton_Click" TabIndex="7" CausesValidation="False"/>
+                <asp:Button ID="AttendeesButton" runat="server" Text="Attendees" Style="position: absolute; left: 203px; top: 725px; width: 80px; height: 44px;" OnClick="AttendeesButton_Click" CausesValidation="False" TabIndex="8" EnableViewState="False" />
                  <br />
                  <br />
                  <br />
@@ -156,8 +163,8 @@
                  <br />
             </div>
             <div class="form-group">
-                <asp:Button ID="SaveButton" runat="server" Text="Save" Style="position: absolute; left: 288px; top: 725px; width: 80px; height: 44px;" OnClick="SaveButton_Click" TabIndex="9" />
-                <asp:Button ID="CancelButton" runat="server" Text="Cancel" Style="position: absolute; left: 373px; top: 725px; width: 80px; height: 44px;" OnClick="CancelButton_Click" TabIndex="10"/>
+                <asp:Button ID="SaveButton" runat="server" Text="Save" Style="position: absolute; left: 288px; top: 725px; width: 80px; height: 44px;" OnClick="SaveButton_Click" TabIndex="9" CausesValidation="False" EnableViewState="False" />
+                <asp:Button ID="CancelButton" runat="server" Text="Cancel" Style="position: absolute; left: 373px; top: 725px; width: 80px; height: 44px;" OnClick="CancelButton_Click" TabIndex="10" CausesValidation="False" EnableViewState="False"/>
             </div>
       
 </asp:Content>
