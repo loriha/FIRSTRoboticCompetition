@@ -9,12 +9,20 @@ using System.Data;
 using System.Drawing;
 using System.Configuration;
 using System.Windows.Forms;
+static class Constants
+{
+    public const int None = 0;
+    public const int Course = 1;
+    public const int Meeting = 2;
+
+}
 
 namespace HolmenHighSchoolRoboticClub
 {
     public partial class Calendar : System.Web.UI.Page
     {
         List<string> attendees = new List<string>();
+        DataTable dt;
 
         private void Page_Load(object sender, System.EventArgs e)
         {
@@ -38,14 +46,25 @@ namespace HolmenHighSchoolRoboticClub
                     EventsGridView.SelectedIndex = (int)Session["SelectedEvent"];
 
                 }
+                if (Session["SearchCriteria"] != null)
+                    SearchCriteria.Text = (string)Session["SearchCriteria"];
 
+                SearchButton_Click(sender, e);
+                
+                /* if (Session["EventsGridView"] != null)
+                {
+                    EventsGridView = (GridView)Session["EventsGridView"];
+                    EventsGridView.DataSource = dt;
+
+                    EventsGridView.DataBind();
+                   
+                }*/
                 //populating attendees from screen data
                 if (Session["Attendees"] != null)
                 {
                     attendees.Clear();
                     attendees = (List<string>)Session["Attendees"];
                 }
-
                 //code for admin only edit calendar
                 /*if (Session["UserRole"] != null && (int)Session["UserRole"] == Constants.Admin)
                 {
@@ -85,7 +104,9 @@ namespace HolmenHighSchoolRoboticClub
             Session["EndTime"] = EndTime.SelectedItem.ToString();
             Session["EventDate"] = EventDayTextBox.Text;
             Session["SelectedEvent"] = EventsGridView.SelectedIndex;
-
+            Session["EventsGridView"] = EventsGridView;
+            Session["DataTable"] = dt;
+            Session["SearchCriteria"] = SearchCriteria.Text;
             if (Session["Attendees"] != null)//don't populate from database
             {
                 attendees = (List<string>)Session["Attendees"];
@@ -184,7 +205,7 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     //insert an event record into the database along with the attendees for the event
                     Int32 newProdID = 0;
-                    SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate,Creator,Status) Values(@Title, @Description, @StartTime, @EndTime, @EventDate, @Creator, @Status)" + "SELECT CAST(scope_identity() AS int)", con);
+                    SqlCommand cmd = new SqlCommand("insert into Event (Title,Description,StartTime,EndTime,EventDate,Creator,Status,EventType) Values(@Title, @Description, @StartTime, @EndTime, @EventDate, @Creator, @Status, @EventType)" + "SELECT CAST(scope_identity() AS int)", con);
 
                     cmd.Parameters.AddWithValue("@Title", TitleTextBox.Text);
                     cmd.Parameters.AddWithValue("@Description", DescriptionTextBox.Text);
@@ -193,11 +214,13 @@ namespace HolmenHighSchoolRoboticClub
                     cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
                     cmd.Parameters.AddWithValue("@Status", "Active");
                     cmd.Parameters.AddWithValue("@Creator", (int)Session["UserID"]);
+                    cmd.Parameters.AddWithValue("@EventType", EventTypeDropDown.SelectedValue);
                     con.Open();
                     newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                     InsertAttendees(con, newProdID);
 
-                    EventsGridView.DataBind();
+                   // EventsGridView.DataBind();
+                    FillGrid();
 
                 }
                 catch (Exception error)
@@ -222,7 +245,7 @@ namespace HolmenHighSchoolRoboticClub
                 int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
 
 
-                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', Status = @Status WHERE Id = @eventID", con);
+                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', EventType = '" + EventTypeDropDown.SelectedItem.ToString() +"', Status = @Status WHERE Id = @eventID", con);
                 cmd.Parameters.AddWithValue("@eventID", eventID);
                 cmd.Parameters.AddWithValue("@Status", EventsGridView.SelectedRow.Cells[7].Text);
 
@@ -338,7 +361,7 @@ namespace HolmenHighSchoolRoboticClub
                 {
                     con.Close();
                 }
-                EventsGridView.DataBind();
+                FillGrid();
                 ResetButton_Click(sender, e);
             }
         }
@@ -514,7 +537,69 @@ namespace HolmenHighSchoolRoboticClub
                 MessageBox.Show("You must select an event to cancel an event.", "Important Message");
         }
 
+        protected void SearchButton_Click(object sender, EventArgs e)
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            
+            
+            try
+            {   
+                SqlCommand cmd = new SqlCommand();
+                // int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
+                if ((SearchCriteria.Text == "%") || (SearchCriteria.Text == "") && (EventTypeDropDown.SelectedIndex == 0))//select all events
+                    cmd.CommandText = "SELECT * FROM EVENT";
+                else if (SearchCriteria.Text != "%" && (EventTypeDropDown.SelectedIndex == 0))
+                {  
+                    //show all events for a given name
+                    cmd.CommandText = "SELECT DISTINCT * FROM EVENT, ATTENDEES WHERE ATTENDEES.EventID = EVENT.ID AND ATTENDEES.NAME = @name";//  ([Title] LIKE '%' + @Title + '%')
+                    cmd.Parameters.AddWithValue("@name", SearchCriteria.Text);
+                }
+                else if ((SearchCriteria.Text != "") && (EventTypeDropDown.SelectedIndex != 0))
+                {
+                   //show all events that meet the event type and search criteria
+                    cmd.CommandText = "SELECT DISTINCT * from EVENT, ATTENDEES WHERE EVENT.EVENTTYPE = @EVENTTYPE AND ATTENDEES.NAME = @NAME AND ATTENDEES.EventID = EVENT.ID";
+                    cmd.Parameters.AddWithValue("@EVENTTYPE", EventTypeDropDown.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@NAME", SearchCriteria.Text);
+
+
+                }
+                cmd.Connection = con;
+                con.Open();
+                dt = new DataTable();
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+
+
+                dt.Clear();
+                adp.Fill(dt);
+                EventsGridView.DataSource = null;
+                EventsGridView.DataSource = dt;
+                EventsGridView.DataBind();
+            }
+            catch (Exception error)
+            {
+                Response.Write(error.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
       
+       public void FillGrid()
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM EVENT",con);
+       
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(ds);
+
+            EventsGridView.DataSource = ds;
+            EventsGridView.DataBind();
+            con.Close();
+        }
     }
-   
 }

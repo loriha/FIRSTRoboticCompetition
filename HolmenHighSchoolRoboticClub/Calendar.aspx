@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Calendar.aspx.cs" Inherits="HolmenHighSchoolRoboticClub.Calendar" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h1>Schedule an Event
+        
     </h1>
     
             <div class="form-group">
@@ -105,9 +106,14 @@
                  <br />
                  <br />
                  <asp:TextBox ID="SearchCriteria" runat="server" style="position:absolute; left:666px; top:107px; height: 44px; width: 235px;"></asp:TextBox>
-                 <asp:Button ID="SearchButton" runat="server" Text="Search" style="position:absolute; left:900px; top:107px; height: 44px; width: 200px;" CausesValidation="False" />
-                 <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False" DataSourceID="EventDataSource1" Style="left: 666px; position: absolute;
-                    top: 151px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="EventsGridView_SelectedIndexChanged" GridLines="None" AllowPaging="True" DataKeyNames="Id" ShowHeaderWhenEmpty="True">
+                 <asp:Button ID="SearchButton" runat="server" Text="Search" style="position:absolute; left:900px; top:107px; height: 44px; width: 92px;" CausesValidation="False" OnClick="SearchButton_Click" />
+                 <asp:DropDownList ID="EventTypeDropDown" runat="server" Style="position: absolute; left: 990px; top: 107px; width: 106px; height: 44px; right: 308px;" >
+                              <asp:ListItem Value="0">None</asp:ListItem>
+                              <asp:ListItem Value="1">Course</asp:ListItem>
+                               <asp:ListItem Value="1">Meeting</asp:ListItem>
+                            </asp:DropDownList>
+                 <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False"  Style="left: 666px; position: absolute;
+                    top: 151px; width: 609px;" AutoGenerateSelectButton="True" OnSelectedIndexChanged="EventsGridView_SelectedIndexChanged" GridLines="None" AllowPaging="True" DataKeyNames="Id" ShowHeaderWhenEmpty="True" >
                      <Columns>
                          <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                          <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
@@ -120,10 +126,8 @@
                      </Columns>
                      <SelectedRowStyle ForeColor="#3333CC" />
                  </asp:GridView>
-                 <asp:SqlDataSource ID="EventDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Event] WHERE ([Title] LIKE '%' + @Title + '%')">
-                     <SelectParameters>
-                         <asp:ControlParameter ControlID="SearchCriteria" DefaultValue="%" Name="Title" PropertyName="Text" Type="String" />
-                     </SelectParameters>
+                 <asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
+                 <asp:SqlDataSource ID="EventDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Event]">
                  </asp:SqlDataSource>
                  <br />
                  <br />
