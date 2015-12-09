@@ -112,6 +112,24 @@ namespace HolmenHighSchoolRoboticClub {
         protected global::System.Web.UI.WebControls.Label EventDayLabel;
         
         /// <summary>
+        /// EventTypeLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label EventTypeLabel;
+        
+        /// <summary>
+        /// EventTypeDropList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList EventTypeDropList;
+        
+        /// <summary>
         /// EventDayTextBox control.
         /// </summary>
         /// <remarks>
@@ -139,13 +157,13 @@ namespace HolmenHighSchoolRoboticClub {
         protected global::System.Web.UI.WebControls.Button SearchButton;
         
         /// <summary>
-        /// EventTypeDropDown control.
+        /// QueryCriteriaDropDown control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList EventTypeDropDown;
+        protected global::System.Web.UI.WebControls.DropDownList QueryCriteriaDropDown;
         
         /// <summary>
         /// EventsGridView control.

@@ -17,6 +17,9 @@ namespace HolmenHighSchoolRoboticClub
             {
                 NameTextBox.Text = Session["UserName"].ToString();
             }
+
+            DateTextBox.Text = DateTime.Now.ToString("d");
+            DateTextBox.Enabled = false;
         }
         protected void OnSubmit(object sender, EventArgs e)
         {
@@ -24,12 +27,13 @@ namespace HolmenHighSchoolRoboticClub
             try
             {
 
-                SqlCommand cmd = new SqlCommand("insert into Sponsor (Name, Currency, DonationType, Profile) Values(@Name, @Currency, @DonationType, @Profile)", con);
+                SqlCommand cmd = new SqlCommand("insert into Sponsor (Name, Currency, DonationType, Profile, Date) Values(@Name, @Currency, @DonationType, @Profile, Date)", con);
 
                 cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
                 cmd.Parameters.AddWithValue("@Currency", txtAmount.Text);
                 cmd.Parameters.AddWithValue("@DonationType", DonationType.SelectedIndex.ToString());
                 cmd.Parameters.AddWithValue("@Profile", ProfileText.Text);
+                cmd.Parameters.AddWithValue("@Date", DateTextBox.Text);
                 con.Open();
                 cmd.ExecuteNonQuery();
 

@@ -9,13 +9,17 @@ using System.Data;
 using System.Drawing;
 using System.Configuration;
 using System.Windows.Forms;
-static class Constants
+static class Constant
 {
     public const int None = 0;
     public const int Course = 1;
     public const int Meeting = 2;
+    public const int Date = 3;
+    public const int Creator = 4;
+   
 
 }
+
 
 namespace HolmenHighSchoolRoboticClub
 {
@@ -50,6 +54,9 @@ namespace HolmenHighSchoolRoboticClub
                     SearchCriteria.Text = (string)Session["SearchCriteria"];
 
                 SearchButton_Click(sender, e);
+                if (Session["EventType"] != null)
+                    EventTypeDropList.SelectedIndex = (int)Session["EventType"];
+
                 
                 /* if (Session["EventsGridView"] != null)
                 {
@@ -107,6 +114,7 @@ namespace HolmenHighSchoolRoboticClub
             Session["EventsGridView"] = EventsGridView;
             Session["DataTable"] = dt;
             Session["SearchCriteria"] = SearchCriteria.Text;
+            Session["EventType"] = EventTypeDropList.SelectedIndex;
             if (Session["Attendees"] != null)//don't populate from database
             {
                 attendees = (List<string>)Session["Attendees"];
@@ -214,7 +222,7 @@ namespace HolmenHighSchoolRoboticClub
                     cmd.Parameters.AddWithValue("@EventDate", EventDayTextBox.Text);
                     cmd.Parameters.AddWithValue("@Status", "Active");
                     cmd.Parameters.AddWithValue("@Creator", (int)Session["UserID"]);
-                    cmd.Parameters.AddWithValue("@EventType", EventTypeDropDown.SelectedValue);
+                    cmd.Parameters.AddWithValue("@EventType", EventTypeDropList.SelectedValue);
                     con.Open();
                     newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                     InsertAttendees(con, newProdID);
@@ -245,14 +253,14 @@ namespace HolmenHighSchoolRoboticClub
                 int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
 
 
-                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', EventType = '" + EventTypeDropDown.SelectedItem.ToString() +"', Status = @Status WHERE Id = @eventID", con);
+                SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', EventType = '" + EventTypeDropList.SelectedIndex +"', Status = @Status WHERE Id = @eventID", con);
                 cmd.Parameters.AddWithValue("@eventID", eventID);
                 cmd.Parameters.AddWithValue("@Status", EventsGridView.SelectedRow.Cells[7].Text);
 
                 con.Open();
                 cmd.ExecuteScalar();
                 InsertAttendees(con, eventID);
-                EventsGridView.DataBind();
+                FillGrid();
 
             }
             catch (Exception error)
@@ -313,6 +321,7 @@ namespace HolmenHighSchoolRoboticClub
             StartTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[4].Text);
             EndTime.SelectedIndex = toIndex(EventsGridView.SelectedRow.Cells[5].Text);
             EventDayTextBox.Text = EventsGridView.SelectedRow.Cells[6].Text;
+            EventTypeDropList.SelectedIndex = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[9].Text);
             getAttendeesFromDB();
 
         }
@@ -325,7 +334,9 @@ namespace HolmenHighSchoolRoboticClub
             EndTime.SelectedIndex = 0; ;
             EventDayTextBox.Text = "";
             EventsGridView.SelectedIndex = -1;
+            EventTypeDropList.SelectedIndex = 0;
             attendees.Clear();
+            Session["Attendees"] = null;
 
         }
 
@@ -546,23 +557,35 @@ namespace HolmenHighSchoolRoboticClub
             {   
                 SqlCommand cmd = new SqlCommand();
                 // int eventID = System.Convert.ToInt32(EventsGridView.SelectedRow.Cells[1].Text);
-                if ((SearchCriteria.Text == "%") || (SearchCriteria.Text == "") && (EventTypeDropDown.SelectedIndex == 0))//select all events
+                if ((SearchCriteria.Text == "%") || (SearchCriteria.Text == "") && (QueryCriteriaDropDown.SelectedIndex == Constant.None))//select all events
                     cmd.CommandText = "SELECT * FROM EVENT";
-                else if (SearchCriteria.Text != "%" && (EventTypeDropDown.SelectedIndex == 0))
+                else if (SearchCriteria.Text != "%" && (QueryCriteriaDropDown.SelectedIndex == Constant.None))
                 {  
                     //show all events for a given name
                     cmd.CommandText = "SELECT DISTINCT * FROM EVENT, ATTENDEES WHERE ATTENDEES.EventID = EVENT.ID AND ATTENDEES.NAME = @name";//  ([Title] LIKE '%' + @Title + '%')
                     cmd.Parameters.AddWithValue("@name", SearchCriteria.Text);
                 }
-                else if ((SearchCriteria.Text != "") && (EventTypeDropDown.SelectedIndex != 0))
+                else if ((SearchCriteria.Text != "") && (QueryCriteriaDropDown.SelectedIndex == Constant.Course) || (QueryCriteriaDropDown.SelectedIndex == Constant.Meeting))
                 {
                    //show all events that meet the event type and search criteria
                     cmd.CommandText = "SELECT DISTINCT * from EVENT, ATTENDEES WHERE EVENT.EVENTTYPE = @EVENTTYPE AND ATTENDEES.NAME = @NAME AND ATTENDEES.EventID = EVENT.ID";
-                    cmd.Parameters.AddWithValue("@EVENTTYPE", EventTypeDropDown.SelectedIndex);
+                    cmd.Parameters.AddWithValue("@EVENTTYPE", QueryCriteriaDropDown.SelectedIndex);
                     cmd.Parameters.AddWithValue("@NAME", SearchCriteria.Text);
-
+                }
+                else if((SearchCriteria.Text != "") && (QueryCriteriaDropDown.SelectedIndex == Constant.Creator))
+                {
+                    cmd.CommandText = "SELECT * FROM Event, Users WHERE Users.ID = Event.Creator AND Users.Name = @Name";
+                    cmd.Parameters.AddWithValue("@Name", SearchCriteria.Text);
 
                 }
+                else if ((SearchCriteria.Text != "") && (QueryCriteriaDropDown.SelectedIndex == Constant.Date))
+                {
+                    DateTime enteredDate = DateTime.Parse(SearchCriteria.Text);
+                    cmd.CommandText = "SELECT * FROM Event WHERE Event.EventDate = @date";
+                    cmd.Parameters.AddWithValue("@date", enteredDate);
+                }
+                
+                    
                 cmd.Connection = con;
                 con.Open();
                 dt = new DataTable();

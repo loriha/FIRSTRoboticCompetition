@@ -99,30 +99,40 @@
                      <asp:ListItem Value="34">11:00 PM</asp:ListItem>
                  </asp:DropDownList>
                  <br />
-                 <asp:Label ID="EventDayLabel" runat="server" Text="Event Day" style="position:absolute; left:26px; top:355px; height: 17px; width: 235px;"></asp:Label>
+                 <asp:Label ID="EventDayLabel" runat="server" Text="Event Day" style="position:absolute; left:26px; top:425px; height: 17px; width: 235px;"></asp:Label>
                  <br />
-                <asp:TextBox ID="EventDayTextBox" runat="server" CssClass="form-control" Enabled="false" style="position:absolute; left:21px; top:380px; height: 44px; width: 235px;" TabIndex="5"></asp:TextBox>
+                 <asp:Label ID="EventTypeLabel" runat="server" Text="Event Type" style="position:absolute; left:21px; top:357px; height: 44px; width: 235px;" TabIndex="5"></asp:Label>
+                 <asp:DropDownList ID="EventTypeDropList" runat="server" style="position:absolute; left:21px; top:381px; height: 44px; width: 235px;" TabIndex="5"> 
+                           <asp:ListItem Value="0">None</asp:ListItem>
+                           <asp:ListItem Value="1">Course</asp:ListItem>
+                           <asp:ListItem Value="1">Meeting</asp:ListItem>
+                           </asp:DropDownList>
+                <asp:TextBox ID="EventDayTextBox" runat="server" CssClass="form-control" Enabled="false" style="position:absolute; left:21px; top:450px; height: 44px; width: 235px;" TabIndex="5"></asp:TextBox>
                  <br />
                  <br />
                  <br />
                  <asp:TextBox ID="SearchCriteria" runat="server" style="position:absolute; left:666px; top:107px; height: 44px; width: 235px;"></asp:TextBox>
                  <asp:Button ID="SearchButton" runat="server" Text="Search" style="position:absolute; left:900px; top:107px; height: 44px; width: 92px;" CausesValidation="False" OnClick="SearchButton_Click" />
-                 <asp:DropDownList ID="EventTypeDropDown" runat="server" Style="position: absolute; left: 990px; top: 107px; width: 106px; height: 44px; right: 308px;" >
+                 <asp:DropDownList ID="QueryCriteriaDropDown" runat="server" Style="position: absolute; left: 990px; top: 107px; width: 106px; height: 44px; right: 308px;" >
                               <asp:ListItem Value="0">None</asp:ListItem>
                               <asp:ListItem Value="1">Course</asp:ListItem>
-                               <asp:ListItem Value="1">Meeting</asp:ListItem>
+                               <asp:ListItem Value="2">Meeting</asp:ListItem>
+                                <asp:ListItem Value="3">Date</asp:ListItem>
+                                <asp:ListItem Value="4">Creator</asp:ListItem>
                             </asp:DropDownList>
+                
                  <asp:GridView ID="EventsGridView" runat="server" AutoGenerateColumns="False"  Style="left: 666px; position: absolute;
                     top: 151px; width: 609px;" AutoGenerateSelectButton="True" OnSelectedIndexChanged="EventsGridView_SelectedIndexChanged" GridLines="None" AllowPaging="True" DataKeyNames="Id" ShowHeaderWhenEmpty="True" >
                      <Columns>
                          <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                          <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                          <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                         <asp:BoundField DataField="StartTime" HeaderText="StartTime" SortExpression="StartTime" />
-                         <asp:BoundField DataField="EndTime" HeaderText="EndTime" SortExpression="EndTime" />
-                         <asp:BoundField DataField="EventDate" HeaderText="EventDate" SortExpression="EventDate" DataFormatString="{0:MM/dd/yy}" />
+                         <asp:BoundField DataField="StartTime" HeaderText="Start Time" SortExpression="StartTime" />
+                         <asp:BoundField DataField="EndTime" HeaderText="End Time" SortExpression="EndTime" />
+                         <asp:BoundField DataField="EventDate" HeaderText="Event Date" SortExpression="EventDate" DataFormatString="{0:MM/dd/yy}" />
                          <asp:BoundField DataField="Creator" HeaderText="Creator" SortExpression="Creator" />
                          <asp:BoundField DataField="Status" HeaderText="Status" SortExpression="Status" />
+                         <asp:BoundField DataField="EventType" HeaderText="Event Type" SortExpression="Status" />
                      </Columns>
                      <SelectedRowStyle ForeColor="#3333CC" />
                  </asp:GridView>

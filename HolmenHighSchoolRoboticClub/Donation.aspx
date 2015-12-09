@@ -9,7 +9,15 @@
     <p>Holmen WI 54636</p>
     <h1>Donate by phone</h1>
     <p>Using a credit card you may pay by phone 608-526-3372</p>
-    <h1>Please sign up to be a sponsor.</h1>
+  
+    <div class="form-group">
+        <asp:Label ID="Date" runat="server" Text="Date" CssClass="col-md-2 control-label"></asp:Label>
+        <div class="col-md-10">
+            <asp:TextBox ID="DateTextBox" runat="server"></asp:TextBox>
+        </div>
+    </div>
+    
+    
     <div class="form-group">
         <asp:Label ID="NameLabel" runat="server" Text="Name" CssClass="col-md-2 control-label"></asp:Label>
         <div class="col-md-10">
