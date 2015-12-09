@@ -27,7 +27,7 @@ namespace HolmenHighSchoolRoboticClub
             try
             {
 
-                SqlCommand cmd = new SqlCommand("insert into Sponsor (Name, Currency, DonationType, Profile, Date) Values(@Name, @Currency, @DonationType, @Profile, Date)", con);
+                SqlCommand cmd = new SqlCommand("insert into Sponsor (Name, Currency, DonationType, Profile, Date) Values(@Name, @Currency, @DonationType, @Profile, @Date)", con);
 
                 cmd.Parameters.AddWithValue("@Name", NameTextBox.Text);
                 cmd.Parameters.AddWithValue("@Currency", txtAmount.Text);
