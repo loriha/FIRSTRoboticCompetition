@@ -226,9 +226,10 @@ namespace HolmenHighSchoolRoboticClub
                     con.Open();
                     newProdID = (Int32)cmd.ExecuteScalar();//get the new id for the event
                     InsertAttendees(con, newProdID);
-
+                 
                    // EventsGridView.DataBind();
                     FillGrid();
+                  
 
                 }
                 catch (Exception error)
@@ -255,7 +256,7 @@ namespace HolmenHighSchoolRoboticClub
 
                 SqlCommand cmd = new SqlCommand("UPDATE Event SET Title = '" + TitleTextBox.Text + "',Description = '" + DescriptionTextBox.Text + "', StartTime = '" + StartTime.SelectedItem.ToString() + "', EndTime = '" + EndTime.SelectedItem.ToString() + "', EventDate = '" + EventDayTextBox.Text + "', EventType = '" + EventTypeDropList.SelectedIndex +"', Status = @Status WHERE Id = @eventID", con);
                 cmd.Parameters.AddWithValue("@eventID", eventID);
-                cmd.Parameters.AddWithValue("@Status", EventsGridView.SelectedRow.Cells[7].Text);
+                cmd.Parameters.AddWithValue("@Status", EventsGridView.SelectedRow.Cells[8].Text);
 
                 con.Open();
                 cmd.ExecuteScalar();
@@ -363,6 +364,8 @@ namespace HolmenHighSchoolRoboticClub
                         else
                             MessageBox.Show("You must be Admin to delete an event", "Important Message");
                      }
+                    else
+                        MessageBox.Show("You must be Admin to delete an event", "Important Message");
                 }
                 catch (Exception error)
                 {
